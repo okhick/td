@@ -15,11 +15,11 @@ import (
 
 var (
 	// Styles matching pkg/monitor/styles.go
-	analyticsHeaderStyle = lipgloss.NewStyle().Bold(true).Foreground(lipgloss.Color("255"))
-	analyticsLabelStyle  = lipgloss.NewStyle().Foreground(lipgloss.Color("241"))
-	analyticsValueStyle  = lipgloss.NewStyle().Foreground(lipgloss.Color("45"))
-	analyticsErrorStyle  = lipgloss.NewStyle().Foreground(lipgloss.Color("196"))
-	analyticsWarnStyle   = lipgloss.NewStyle().Foreground(lipgloss.Color("214"))
+	analyticsHeaderStyle = lipgloss.NewStyle().Bold(true).Foreground(lipgloss.Color(output.CurrentPalette().Text))
+	analyticsLabelStyle  = lipgloss.NewStyle().Foreground(lipgloss.Color(output.CurrentPalette().Subtle))
+	analyticsValueStyle  = lipgloss.NewStyle().Foreground(lipgloss.Color(output.CurrentPalette().Accent))
+	analyticsErrorStyle  = lipgloss.NewStyle().Foreground(lipgloss.Color(output.CurrentPalette().Error))
+	analyticsWarnStyle   = lipgloss.NewStyle().Foreground(lipgloss.Color(output.CurrentPalette().Warning))
 )
 
 const (

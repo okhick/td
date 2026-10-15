@@ -96,6 +96,42 @@ func DefaultTheme() Theme {
 	}
 }
 
+// LightTheme returns td's standalone palette for light terminal backgrounds.
+// Every role keeps DefaultTheme's hue, deepened to a darker 256-color shade so
+// it stays legible on white; the gray ramp is inverted.
+func LightTheme() Theme {
+	return Theme{
+		Primary:       "162",
+		Secondary:     "97",
+		Accent:        "24",
+		Success:       "28",
+		Warning:       "130",
+		Error:         "160",
+		Info:          "24",
+		ReadyToClose:  "29",
+		PendingReview: "96",
+		PendingOther:  "60",
+		TextPrimary:   "235",
+		TextSecondary: "238",
+		TextMuted:     "244",
+		TextSubtle:    "243",
+		TextSelection: "232",
+		OnPrimary:     "255",
+		OnWarning:     "255",
+		OnError:       "255",
+		Background:    "255",
+		Surface:       "231", // pure white; 255 is #eeeeee, darker than most light terminals
+		SurfaceRaised: "255",
+		Selection:     "252",
+		Backdrop:      "250",
+		Border:        "250",
+		BorderMuted:   "248",
+		BorderActive:  "162",
+		Link:          "24",
+		MarkdownTheme: "light",
+	}
+}
+
 // normalizedTheme validates every explicitly supplied color and overlays the
 // supplied semantic slots on td's defaults. It constructs the complete result
 // before returning so callers can apply a theme atomically.

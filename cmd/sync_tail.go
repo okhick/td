@@ -16,9 +16,9 @@ import (
 
 // Styles for sync tail output
 var (
-	pushArrow = lipgloss.NewStyle().Foreground(lipgloss.Color("42")).Render("→") // green
-	pullArrow = lipgloss.NewStyle().Foreground(lipgloss.Color("45")).Render("←") // cyan
-	dimStyle  = lipgloss.NewStyle().Foreground(lipgloss.Color("241"))
+	pushArrow = lipgloss.NewStyle().Foreground(lipgloss.Color(output.CurrentPalette().Success)).Render("→") // green
+	pullArrow = lipgloss.NewStyle().Foreground(lipgloss.Color(output.CurrentPalette().Accent)).Render("←")  // cyan
+	dimStyle  = lipgloss.NewStyle().Foreground(lipgloss.Color(output.CurrentPalette().Subtle))
 )
 
 var syncTailCmd = &cobra.Command{

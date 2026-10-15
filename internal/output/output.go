@@ -17,19 +17,23 @@ import (
 var (
 	// Styles
 	titleStyle    = lipgloss.NewStyle().Bold(true)
-	subtleStyle   = lipgloss.NewStyle().Foreground(lipgloss.Color("241"))
-	successStyle  = lipgloss.NewStyle().Foreground(lipgloss.Color("42"))
-	errorStyle    = lipgloss.NewStyle().Foreground(lipgloss.Color("196"))
-	warningStyle  = lipgloss.NewStyle().Foreground(lipgloss.Color("214"))
-	priorityStyle = lipgloss.NewStyle().Foreground(lipgloss.Color("212"))
-	statusStyles  = map[models.Status]lipgloss.Style{
-		models.StatusOpen:       lipgloss.NewStyle().Foreground(lipgloss.Color("45")),
-		models.StatusInProgress: lipgloss.NewStyle().Foreground(lipgloss.Color("214")),
-		models.StatusBlocked:    lipgloss.NewStyle().Foreground(lipgloss.Color("196")),
-		models.StatusInReview:   lipgloss.NewStyle().Foreground(lipgloss.Color("141")),
-		models.StatusClosed:     lipgloss.NewStyle().Foreground(lipgloss.Color("242")),
-	}
+	subtleStyle   = fg(DarkPalette.Subtle)
+	successStyle  = fg(DarkPalette.Success)
+	errorStyle    = fg(DarkPalette.Error)
+	warningStyle  = fg(DarkPalette.Warning)
+	priorityStyle = fg(DarkPalette.Primary)
+	statusStyles  = newStatusStyles(DarkPalette)
 )
+
+func newStatusStyles(p Palette) map[models.Status]lipgloss.Style {
+	return map[models.Status]lipgloss.Style{
+		models.StatusOpen:       fg(p.Accent),
+		models.StatusInProgress: fg(p.Warning),
+		models.StatusBlocked:    fg(p.Error),
+		models.StatusInReview:   fg(p.Secondary),
+		models.StatusClosed:     fg(p.Closed),
+	}
+}
 
 // OutputMode determines output format
 type OutputMode int

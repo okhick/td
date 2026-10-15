@@ -2,6 +2,7 @@ package cmd
 
 import (
 	"fmt"
+	"os"
 	"time"
 
 	tea "charm.land/bubbletea/v2"
@@ -56,8 +57,24 @@ Mouse support:
 			interval = 2 * time.Second
 		}
 
+		themeName, _ := cmd.Flags().GetString("theme")
+		if themeName == "" {
+			themeName = os.Getenv(output.ThemeEnv)
+		}
+		resolvedTheme, err := output.ResolveThemeName(themeName)
+		if err != nil {
+			_ = database.Close()
+			output.Error("%v", err)
+			return err
+		}
+
 		model := monitor.NewModel(database, sess.ID, interval, versionStr, baseDir)
 		defer func() { _ = model.Close() }()
+		if resolvedTheme == "light" {
+			if err := model.SetTheme(monitor.LightTheme()); err != nil {
+				return err
+			}
+		}
 
 		p := tea.NewProgram(model)
 		if _, err := p.Run(); err != nil {
@@ -70,4 +87,5 @@ Mouse support:
 func init() {
 	rootCmd.AddCommand(monitorCmd)
 	monitorCmd.Flags().Duration("interval", 2*time.Second, "Refresh interval (default 2s)")
+	monitorCmd.Flags().String("theme", "", "Color theme: dark, light, or auto (default $TD_THEME, else dark)")
 }
