@@ -61,6 +61,9 @@ Mouse support:
 		if themeName == "" {
 			themeName = os.Getenv(output.ThemeEnv)
 		}
+		if themeName == "" {
+			themeName = "auto"
+		}
 		resolvedTheme, err := output.ResolveThemeName(themeName)
 		if err != nil {
 			_ = database.Close()
@@ -87,5 +90,5 @@ Mouse support:
 func init() {
 	rootCmd.AddCommand(monitorCmd)
 	monitorCmd.Flags().Duration("interval", 2*time.Second, "Refresh interval (default 2s)")
-	monitorCmd.Flags().String("theme", "", "Color theme: dark, light, or auto (default $TD_THEME, else dark)")
+	monitorCmd.Flags().String("theme", "", "Color theme: dark, light, or auto (default $TD_THEME, else auto)")
 }
